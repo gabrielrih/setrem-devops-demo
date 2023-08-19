@@ -13,7 +13,7 @@ def index():
 @app.route('/home')
 def home():
     PAGE_TITLE = 'Comidas favoritas'
-    return render_template('index.html', page_title = PAGE_TITLE)
+    return render_template('index.html', page_title=PAGE_TITLE)
 
 
 @app.route('/api', methods=['GET'])
