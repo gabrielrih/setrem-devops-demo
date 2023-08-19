@@ -1,0 +1,17 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run pytest (On Windows)",
+            "type": "shell",
+            "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && pytest'"
+        },
+        {
+            "label": "Check for vulnerabilities (On Windows)",
+            "type": "shell",
+            "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && safety check -r requirements/dev.txt'"
+        }
+    ]
+}

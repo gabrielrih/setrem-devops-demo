@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Comidas favoritas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+a { text-decoration: none}
+</style>
+</head>
+<body>
+
+<!-- Sidebar (hidden by default) -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+  <a href="javascript:void(0)" onclick="close_menu()"
+  class="w3-bar-item w3-button">Fechar Menu</a>
+  <a href="#food" onclick="close_menu()" class="w3-bar-item w3-button">Comidas favoritas</a>
+  <a href="#about" onclick="close_menu()" class="w3-bar-item w3-button">Sobre mim</a>
+</nav>
+
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+    <div class="w3-button w3-padding-16 w3-left" onclick="open_menu()">☰</div>
+    <div class="w3-center w3-padding-16">Comidas favoritas</div>
+  </div>
+</div>
+  
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    <div class="w3-quarter">
+      <a href="https://pt.wikipedia.org/wiki/Churrasco">
+        <img src="/static/images/churrasco.jpg" alt="Sandwich" style="width:100%">
+        <h3>Churrasco</h3>
+        <p>Churrasco é o prato feito à base de carne in natura ou processada, assada sobre o fogo ou brasas, com a utilização de espetos ou grelhas.</p>
+      </a>
+    </div>
+    <div class="w3-quarter">
+      <a href="https://pt.wikipedia.org/wiki/Estrogonofe">
+        <img src="/static/images/strogonoff.jpg" alt="Sandwich" style="width:100%">
+        <h3>Strogonoff</h3>
+        <p>Strogonoff é um prato originário da culinária russa composto de cubos de carne ou legumes, servidos num molho de creme de leite. Desde suas origens no século XIX, o prato popularizou-se em muitos países europeus, norte-americanos e no Brasil, sempre com variações consideráveis da receita original.</p>
+      </a>
+    </div>
+    <div class="w3-quarter">
+      <a href="https://pt.wikipedia.org/wiki/Galinhada">
+        <img src="/static/images/galinhada.jpg" alt="Sandwich" style="width:100%">
+        <h3>Galinhada</h3>
+        <p>Galinhada é um prato culinário típico da culinária brasileira, mais especificamente dos estados de São Paulo, Minas Gerais (Triângulo Mineiro e Alto Paranaíba) e Goiás. De origem bandeirante, consiste em arroz cozido e frango em pedaços cozido. O tempero é composto de açafrão (que dá a cor amarelada típica ao arroz), vinagrete (opcional e à parte), e tutu de feijão. A galinhada tipicamente goiana leva guariroba (um tipo de palmito amargo) e pequi.</p>
+      </a>
+    </div>
+    <div class="w3-quarter">
+      <a href="https://pt.wikipedia.org/wiki/Lasanha">
+        <img src="/static/images/lasanha.jpg" alt="Sandwich" style="width:100%">
+        <h3>Lasanha</h3>
+        <p>Lasanha (lasagne em italiano) é tanto um tipo de massa alimentícia formada por fitas largas, como também um prato, por vezes chamado lasanha ao forno, feito com essas fitas colocadas em camadas, e entremeadas com recheio (queijo, presunto, carne moída ou outros) e molho.</p>
+      </a>
+    </div>
+  </div>
+  
+  <hr id="about">
+
+  <!-- About Section -->
+  <div class="w3-container w3-padding-32 w3-center">  
+    <h3>Sobre mim</h3><br>
+    <img src="/static/images/me.jpg" alt="Me" class="w3-image" style="display:block;margin:auto" width="500" height="350">
+    <div class="w3-padding-32">
+      <h4><b>Lorem Ipsum!</b></h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque erat dolor, rutrum non tempus ac, aliquam eu lorem. Phasellus sed hendrerit sapien. Sed commodo risus enim, ut ornare massa dictum quis. Nam viverra feugiat pulvinar. Nunc nec ligula aliquam, rhoncus dui a, scelerisque mi. Mauris consequat ex at leo commodo, et tempus leo lobortis. Pellentesque porta dapibus scelerisque. Nam id scelerisque urna. Donec laoreet porttitor urna sit amet placerat. Curabitur nunc erat, efficitur ac massa vel, finibus commodo dolor. Donec faucibus gravida rhoncus. Nulla id tellus a velit finibus suscipit eu eget lacus. Sed non aliquam orci.</p>
+    </div>
+  </div>
+  <hr>
+  
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-32">
+    <div class="w3-third">
+      <h3>FOOTER</h3>
+      <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+  
+    <div class="w3-third w3-serif">
+      <h3>Tags</h3>
+      <p>
+        <span class="w3-tag w3-black w3-margin-bottom">Comida</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Carne</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Galinhada</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Churrasco</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Arroz</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Brasil</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Strogonoff</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Cozinha</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Sabores</span>
+      </p>
+    </div>
+  </footer>
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function open_menu() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+ 
+function close_menu() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+
+</body>
+</html>
