@@ -1,10 +1,10 @@
-- Pipelines
+- Pipeline
     CI
-    - Lint8
-    - Unit test
-    - Coverage
-    - Vulnerability scan
-    - Sonar
+    - Lint8                 done
+    - Unit test             done
+    - Coverage              done
+    - Vulnerability scan    done
+    - Sonar                 done
     CD
     - Generate image and upload to Docker hub
     - Create container and run E2E test
@@ -12,3 +12,4 @@
         - cypress to web test
     - Deploy on K8S
         - This one must be just "in theory". Create the deploy.yml to test local
+
