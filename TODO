@@ -6,7 +6,8 @@
     - Vulnerability scan    done
     - Sonar                 done
     CD
-    - Generate image and upload to Docker hub
+    - Generate image and upload to Docker hub   done
+    - fix: image tag (pr name or commit hash)
     - Create container and run E2E test
         - API test
         - cypress to web test
