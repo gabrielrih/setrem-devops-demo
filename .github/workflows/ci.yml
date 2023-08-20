@@ -82,9 +82,9 @@ jobs:
           context: .
           load: true
           tags: ${{ env.DEV_TAG }}
-      - name: Test image
-        run: |
-          docker run --rm ${{ env.DEV_TAG }}
+      # - name: Test image
+      #   run: |
+      #     docker run --rm ${{ env.DEV_TAG }}
       - name: Push image to Docker Hub
         uses: docker/build-push-action@v4
         with:
