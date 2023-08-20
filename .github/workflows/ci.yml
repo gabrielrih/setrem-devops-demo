@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Unit tests and code coverage
     steps:
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Security scan
     steps:
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
@@ -64,7 +64,7 @@ jobs:
     name: Build and push docker image
     needs: [unit_tests, security_scan]
     steps:
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
