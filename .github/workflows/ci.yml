@@ -69,13 +69,6 @@ jobs:
     needs: [unit_tests, security_scan]
     steps:
       - uses: actions/checkout@v3
-      # - name: Build image
-      #   run: |
-      #     docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }} .
-      # - name: Push image to Docker Hub
-      #   run: |
-      #     docker login-u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} docker.io
-      #     docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Login to Docker Hub
@@ -83,15 +76,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # - name: Build docker image
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     load: true
-      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DEV_TAG }}
-      # - name: Test image
-      #   run: |
-      #     docker run --rm ${{ env.DEV_TAG }}
       - name: Build and push image to Docker Hub
         uses: docker/build-push-action@v4
         with:
