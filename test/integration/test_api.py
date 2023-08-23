@@ -11,7 +11,7 @@ class TestApi(TestCase):
 
     def test_insert_food(self):
         # Given
-        content = {
+        data = {
             "name": "My food",
             "description": "This is the description",
             "link": "https://fake-link.com",
@@ -19,7 +19,10 @@ class TestApi(TestCase):
         }
         # When
         endpoint = self.base_url + '/api/food/'
-        response = requests.post(endpoint, data=content)
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        response = requests.post(endpoint, data, headers)
         # Then
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
         self.assertEqual(response.content, [])
