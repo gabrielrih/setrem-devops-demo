@@ -5,15 +5,19 @@ from tinydb import TinyDB
 
 class Repository(ABC):
     def __init__(self, database_name: str) -> None:
+        ''' Initialize setting a database_name. It must be used for a file name, database or other '''
         pass
 
     def insert(self, content: Dict) -> None:
+        ''' It inserts a document on the database '''
         pass
 
     def get_all(self) -> List:
+        ''' It gets all the documents from the database '''
         pass
 
     def get_by_key(self, key: str, value: str) -> List:
+        ''' It returns a list of all documents which match an specific criteria '''
         pass
 
 
@@ -39,6 +43,7 @@ class InMemoryRepository(Repository):
     __database = []
 
     def __init__(self, database_name: str = 'db.json'):
+        ''' There is no needed to implement it. The database_name input is just to keep the compatibility '''
         pass
 
     def insert(self, content: Dict) -> None:

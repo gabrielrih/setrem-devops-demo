@@ -47,7 +47,7 @@ class TestInFileRepository(Config):
         }
         # When
         repository = InFileRepository(self.__DATABASE_NAME)
-        for i in range(2):  # Insert the same element two times
+        for _ in range(2):  # Insert the same element two times
             repository.insert(content)
         # Get inserted elements
         response = repository.get_all()

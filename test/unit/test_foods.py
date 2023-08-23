@@ -22,13 +22,14 @@ class TestFoods(TestCase):
     def test_add_and_get_food_by_name(self):
         # Given
         foods = Foods(self.repository)
+        name = "My food"
         data = {
-            "name": "My food",
+            "name": name,
             "description": "Description of the food"
         }
         # When
         foods.add_food(data)
-        response = foods.get_food_by_name("My food")
+        response = foods.get_food_by_name(name)
         # Then
         self.assertIsNotNone(response)
-        self.assertEqual(response[0]['name'], "My food")
+        self.assertEqual(response[0]['name'], name)
