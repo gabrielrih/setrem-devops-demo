@@ -8,24 +8,21 @@ from src.foods import Foods, FoodSchema
 app = Flask(__name__)
 foods = Foods()
 
-### Redirect
+# Redirect
 @app.route('/')
 def index():
     return redirect('/home')
 
 
-### Web Site
+# Web Site
 @app.route('/home')
 def home():
-    # FIX IT
-    # Get the foods and render in the page
-    # return render_template('index.html')
     items = foods.get_all()
     print(items)
     return render_template('index.html', items = items)
 
 
-### APIs
+# APIs
 @app.route("/api/food/", methods=['GET'])
 def get_foods():
     name = request.args.get('name')

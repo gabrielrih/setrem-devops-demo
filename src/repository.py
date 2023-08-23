@@ -26,7 +26,7 @@ class InFileRepository(Repository):
 
     def get_all(self) -> List:
         return self.db.all()
-    
+
     def get_by_key(self, key: str, value: str) -> List:
         response = []
         for item in self.get_all():
@@ -46,7 +46,7 @@ class InMemoryRepository(Repository):
 
     def get_all(self) -> List:
         return self.__database
-    
+
     def get_by_key(self, key: str, value: str) -> List:
         response = []
         for item in self.__database:
