@@ -1,6 +1,6 @@
 import requests
 
-from typing import Dict
+from typing import Dict, List
 from http import HTTPStatus
 from unittest import TestCase
 
@@ -34,4 +34,4 @@ class TestApi(TestCase):
         response = requests.get(endpoint)
         # Then
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertIsInstance(response.content, Dict)
+        self.assertIsInstance(response.content, List)
