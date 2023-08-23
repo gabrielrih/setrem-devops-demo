@@ -96,17 +96,21 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Start container for testing
+      - name: Pull image and start a container
         run: |
           docker_image="${{ secrets.DOCKERHUB_USERNAME}}/${{ env.LATEST_TAG }}"
           echo "Getting image $docker_image"
           docker pull $docker_image
-          
+
           echo "Debug"
-          docker image ls | grep $docker_image
+          docker image ls
           
           echo "Starting a container for testing"
           docker run --rm -p 80:5000 $docker_image
       - name: Run integration tests
         run: |
           pytest test/integration
+      - name: Stop container
+        run: |
+          container_name="${{ secrets.DOCKERHUB_USERNAME}}/${{ env.LATEST_TAG }}"
+          docker stop $container_name
