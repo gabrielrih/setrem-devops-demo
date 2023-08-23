@@ -7,7 +7,7 @@ from unittest import TestCase
 
 class TestApi(TestCase):
 
-    base_url = 'http://localhost:8080'
+    base_url = 'http://localhost:5000'
 
     def test_insert_food(self):
         # Given
