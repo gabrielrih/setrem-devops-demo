@@ -107,8 +107,10 @@ jobs:
           
           echo "Starting a container for testing"
           docker run --rm -d -p 80:5000 $docker_image
+          docker container ls
       - name: Run integration tests
         run: |
+          docker container ls
           curl localhost/home
           pytest test/integration
       - name: Stop container
