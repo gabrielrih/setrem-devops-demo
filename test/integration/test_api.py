@@ -15,7 +15,7 @@ class TestIntegrationApi(TestCase):
 
     def test_get_all_foods(self):
         # Given
-        endpoint += self.base_url + '/api/food'
+        endpoint = self.base_url + '/api/food'
         # When
         response = requests.get(endpoint)
         print(response)
