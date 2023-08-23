@@ -110,7 +110,7 @@ jobs:
           
           echo "Listing the running containers and listener"
           docker container ls
-          netstat -nat
+          netstat -nat | grep 8080
           
           # echo "Run curl for test connection"
           # curl http://localhost:8080/api/food/
