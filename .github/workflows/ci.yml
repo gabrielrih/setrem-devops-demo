@@ -95,7 +95,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Pull image and start a container
+      # - name: Pull image and start a container
+      - name: Run integration tests
         run: |
           docker_image="${{ secrets.DOCKERHUB_USERNAME}}/${{ env.LATEST_TAG }}"
           echo "Getting image $docker_image"
@@ -110,10 +111,9 @@ jobs:
           echo "Listing the running containers and listener"
           docker container ls
           netstat -nat
-      - name: Run integration tests
-        run: |
+          
           # echo "Run curl for test connection"
-          # curl http://localhost/api/food/
+          # curl http://localhost:8080/api/food/
 
           echo "Run integration tests"
           pytest test/integration
