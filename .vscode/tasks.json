@@ -9,6 +9,12 @@
             "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && pytest test/unit'"
         },
         {
+            "label": "Run integration API tests (On Windows)",
+            "type": "shell",
+            //"command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && pytest test/integration'"
+            "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && pytest test/integration'"
+        },
+        {
             "label": "Check for vulnerabilities (On Windows)",
             "type": "shell",
             "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && safety check -r requirements/dev.txt'"

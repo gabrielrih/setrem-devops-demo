@@ -105,10 +105,11 @@ jobs:
           docker image ls
           
           echo "Starting a container for testing"
-          docker run --rm -d -p 80:5000 $docker_image
+          docker run --rm -d -p 8080:5000 $docker_image
           
-          echo "Listing the running containers"
+          echo "Listing the running containers and listener"
           docker container ls
+          netstat -nat
       - name: Run integration tests
         run: |
           # echo "Run curl for test connection"

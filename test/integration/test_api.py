@@ -3,9 +3,9 @@ import requests
 from unittest import TestCase
 
 
-class TestIntegrationApi(TestCase):
+class TestApi(TestCase):
 
-    base_url = 'http://localhost'
+    base_url = 'http://localhost:8080'
 
     def test_insert_food(self):
         pass
