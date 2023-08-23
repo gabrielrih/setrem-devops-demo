@@ -1,1 +1,3 @@
-flask>=2.3
+flask==2.3.3
+marshmallow==3.20.1
+tinydb==4.8.0
