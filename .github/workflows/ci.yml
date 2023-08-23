@@ -98,7 +98,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Start container for testing
         run: |
-          docker_image = ${{ secrets.DOCKERHUB_USERNAME}}/${{ env.LATEST_TAG }}
+          docker_image="${{ secrets.DOCKERHUB_USERNAME}}/${{ env.LATEST_TAG }}"
           echo "Getting image $docker_image"
           docker pull $docker_image
           docker image ls | grep $docker_image
