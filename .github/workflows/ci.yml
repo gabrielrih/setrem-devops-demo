@@ -102,13 +102,14 @@ jobs:
           echo "Getting image $docker_image"
           docker pull $docker_image
 
-          echo "Debug"
+          echo "Printing images for debugging"
           docker image ls
           
           echo "Starting a container for testing"
-          docker run --rm -p 80:5000 $docker_image
+          docker run --rm -d -p 80:5000 $docker_image
       - name: Run integration tests
         run: |
+          curl localhost/home
           pytest test/integration
       - name: Stop container
         run: |
