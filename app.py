@@ -35,10 +35,22 @@ def get_foods():
 def add_food():
     content_type = request.headers.get('Content-Type')
     if content_type != 'application/json':
-        return 'Content-Type not supported! Support ones: application/json', HTTPStatus.BAD_REQUEST
+        response = {
+            "error": {
+                "code": HTTPStatus.BAD_REQUEST,
+                "message": 'Content-Type not supported! Support ones: application/json'
+            }
+        }
+        return response, HTTPStatus.BAD_REQUEST
     content = request.json
     if not content:
-        return 'Body cannot be empty!', HTTPStatus.BAD_REQUEST
+        response = {
+            "error": {
+                "code": HTTPStatus.BAD_REQUEST,
+                "message": 'Body cannot be empty!'
+            }
+        }
+        return response, HTTPStatus.BAD_REQUEST
     # Validate request body against schema data types
     schema = FoodSchema()
     try:

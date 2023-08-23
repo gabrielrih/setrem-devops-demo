@@ -24,8 +24,20 @@ class TestApi(TestCase):
         }
         response = requests.post(endpoint, data, headers)
         # Then
+        print(response.json)
+        print(response.content)
+        print(response.reason)
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
         self.assertEqual(response.content, [])
+
+    def test_insert_food_when_content_type_not_allowed(self):
+        pass
+
+    def test_insert_food_invalid_schema(self):
+        pass
+
+    def test_insert_food_when_body_is_empty(self):
+        pass
 
     def test_get_food_by_name(self):
         pass
