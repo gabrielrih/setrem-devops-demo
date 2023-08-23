@@ -95,7 +95,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # - name: Pull image and start a container
       - name: Run integration tests
         run: |
           docker_image="${{ secrets.DOCKERHUB_USERNAME}}/${{ env.LATEST_TAG }}"
