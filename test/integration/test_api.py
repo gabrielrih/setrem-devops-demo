@@ -1,7 +1,12 @@
+import requests
+
 from unittest import TestCase
 
 
 class TestIntegrationApi(TestCase):
+
+    base_url = 'http://localhost'
+
     def test_insert_food(self):
         pass
 
@@ -9,4 +14,10 @@ class TestIntegrationApi(TestCase):
         pass
 
     def test_get_all_foods(self):
-        pass
+        # Given
+        endpoint += self.base_url + '/api/food'
+        # When
+        response = requests.get(endpoint)
+        print(response)
+        # Then
+        self.assertEqual(response, '')
