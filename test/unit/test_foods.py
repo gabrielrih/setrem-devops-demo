@@ -5,9 +5,8 @@ from src.foods import Foods
 from src.repository import InMemoryRepository
 
 
-''' Test Foods class using InMemoryRepository '''
 class TestFoods(TestCase):
-
+    ''' Test Foods class using InMemoryRepository '''
     repository = InMemoryRepository()
 
     def test_get_all_foods(self):

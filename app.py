@@ -8,6 +8,7 @@ from src.foods import Foods, FoodSchema
 app = Flask(__name__)
 foods = Foods()
 
+
 # Redirect
 @app.route('/')
 def index():
@@ -18,8 +19,7 @@ def index():
 @app.route('/home')
 def home():
     items = foods.get_all()
-    print(items)
-    return render_template('index.html', items = items)
+    return render_template('index.html', items=items)
 
 
 # APIs
