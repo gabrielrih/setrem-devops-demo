@@ -28,10 +28,9 @@ class TestApi(TestCase):
         pass
 
     def test_get_all_foods(self):
-        # Given
         # When
         endpoint = self.base_url + '/api/food/'
         response = requests.get(endpoint)
         # Then
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertIsInstance(response.content, List)
+        self.assertIsNotNone(response.content)

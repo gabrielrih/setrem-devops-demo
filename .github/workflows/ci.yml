@@ -106,14 +106,16 @@ jobs:
           docker image ls
           
           echo "Starting a container for testing"
-          docker run --rm -d -p 8080:5000 $docker_image
+          docker run --rm -d -p 5000:5000 $docker_image
           
           echo "Listing the running containers and listener"
           docker container ls
-          netstat -nat | grep 8080
+          
+          echo "Open ports"
+          netstat -nat | grep 5000
           
           # echo "Run curl for test connection"
-          # curl http://localhost:8080/api/food/
+          # curl http://localhost:5000/api/food/
 
           echo "Run integration tests"
           pytest test/integration
