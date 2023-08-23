@@ -107,11 +107,15 @@ jobs:
           
           echo "Starting a container for testing"
           docker run --rm -d -p 80:5000 $docker_image
+          
+          echo "Listing the running containers"
           docker container ls
       - name: Run integration tests
         run: |
-          docker container ls
-          curl localhost/home
+          echo "Run curl for test connection"
+          curl http://localhost/api/food/
+
+          echo "Run integration tests"
           pytest test/integration
       - name: Stop container
         run: |
