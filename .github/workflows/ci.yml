@@ -16,7 +16,7 @@ permissions:
 jobs:
   unit_tests:
     runs-on: ubuntu-latest
-    name: Run lint and unit tests
+    name: Lint and unit tests
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -34,20 +34,20 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - name: Unit tests
+      - name: Run Unit tests
         run: |
           pytest test/unit
   all_tests:
     runs-on: ubuntu-latest
-    name: Run all tests and code coverage (Unit and integration)
+    name: All tests and code coverage
     steps:
       - uses: actions/checkout@v3
-      - name: Run all tests
+      - name: Run unit and integration tests
         run: |
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
       - name: Generage coverage.xml
         run: |
-          coverage.xml
+          coverage xml
           ls -ls
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
