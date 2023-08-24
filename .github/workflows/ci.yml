@@ -52,6 +52,8 @@ jobs:
           ls -lsa
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          files: coverage.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload artifact
