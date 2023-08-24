@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage.xml
-          path: ./coverage.xml
+          path: coverage.xml
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
