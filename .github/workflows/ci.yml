@@ -39,20 +39,12 @@ jobs:
           pytest test/unit
   integration_test:
     runs-on: ubuntu-latest
-    name: Run integration tests
+    name: Run integration tests and code coverage
     steps:
       - uses: actions/checkout@v3
       - name: Run integration tests
         run: |
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
-  code_coverage:
-    runs-on: ubuntu-latest
-    name: Code coverage
-    needs: [unit_tests, integration_test]
-    steps:
-      # FIX IT
-      # Where to put code coverage???
-      # coverage run -m pytest test/unit
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:

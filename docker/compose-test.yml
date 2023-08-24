@@ -15,11 +15,15 @@ services:
       dockerfile: ./docker/Dockerfile.test
     depends_on:
       - app
-    command: pytest ./test/unit
+    command: coverage run -a -m pytest ./test/unit
+    volumes:
+      - ../:/app
   integration_test:
     build: 
       context: ../
       dockerfile: ./docker/Dockerfile.test
     depends_on:
       - app
-    command: pytest ./test/integration
+    command: coverage run -a -m pytest ./test/integration
+    volumes:
+      - ../:/app
