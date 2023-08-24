@@ -49,13 +49,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Code coverage
     needs: [unit_tests, integration_test]
-    # FIX IT
-    # Where to put code coverage???
-    # coverage run -m pytest test/unit
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    steps:
+      # FIX IT
+      # Where to put code coverage???
+      # coverage run -m pytest test/unit
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
