@@ -53,7 +53,8 @@ jobs:
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
       - name: Generate coverage.xml
         run: |
-          coverage xml #-i
+          ls -lsa
+          coverage xml
           ls -lsa
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
