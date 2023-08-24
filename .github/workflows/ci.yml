@@ -54,6 +54,11 @@ jobs:
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage.xml
+          path: ./coverage.xml
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
@@ -75,6 +80,10 @@ jobs:
       - name: Vulnerability scan on dev packages
         run: |
           safety check -r requirements/dev.txt
+      - name: Download artifact coverage.xml
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage.xml
       # FIX IT
       # The coverage in 0%
       - name: SonarCloud Scan
