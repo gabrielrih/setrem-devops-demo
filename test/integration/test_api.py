@@ -11,34 +11,27 @@ class TestApi(TestCase):
     # So, to run the test integration please use the docker compose
     base_url = 'http://my-ip.dev:5000'
 
-    def test_simple_get_api(self):
+    def test_insert_and_get_food(self):
         # Given
-        endpoint = self.base_url + '/api/food/'
+        name = "My food"
+        data = {
+            "name": name,
+            "description": "This is the description",
+            "link": "https://fake-link.com",
+            "link_image": "https://fake-image-link.com"
+        }
         # When
-        response = requests.get(endpoint)
+        endpoint = self.base_url + '/api/food/'
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        response = requests.post(endpoint, data, headers)
         # Then
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-
-    # def test_insert_food(self):
-    #     # Given
-    #     data = {
-    #         "name": "My food",
-    #         "description": "This is the description",
-    #         "link": "https://fake-link.com",
-    #         "link_image": "https://fake-image-link.com"
-    #     }
-    #     # When
-    #     endpoint = self.base_url + '/api/food/'
-    #     headers = {
-    #         'Content-Type': 'application/json'
-    #     }
-    #     response = requests.post(endpoint, data, headers)
-    #     # Then
-    #     print(response.json)
-    #     print(response.content)
-    #     print(response.reason)
-    #     self.assertEqual(response.status_code, HTTPStatus.CREATED)
-    #     self.assertEqual(response.content, [])
+        print(response.json)
+        print(response.content)
+        print(response.reason)
+        self.assertEqual(response.status_code, HTTPStatus.CREATED)
+        self.assertEqual(response.content, data)
 
     def test_insert_food_when_content_type_not_allowed(self):
         pass
@@ -65,11 +58,9 @@ class TestApi(TestCase):
     def test_get_food_by_name(self):
         pass
 
-    # def test_get_all_foods(self):
-    #     # When
-    #     endpoint = self.base_url + '/api/food/'
-    #     response = requests.get(endpoint)
-    #     # Then
-    #     self.assertEqual(response.status_code, HTTPStatus.OK)
-    #     # self.assertIsNotNone(response.content)
-
+    def test_get_all_foods(self):
+        # When
+        endpoint = self.base_url + '/api/food/'
+        response = requests.get(endpoint)
+        # Then
+        self.assertEqual(response.status_code, HTTPStatus.OK)
