@@ -9,21 +9,30 @@ services:
       default:
         aliases:
           - my-ip.dev
-  unit_test:
+  test:
     build: 
       context: ../
       dockerfile: ./docker/Dockerfile.test
     depends_on:
       - app
-    command: coverage run -a -m pytest ./test/unit
+    command: coverage run -m pytest
     volumes:
       - ../:/app
-  integration_test:
-    build: 
-      context: ../
-      dockerfile: ./docker/Dockerfile.test
-    depends_on:
-      - app
-    command: coverage run -a -m pytest ./test/integration
-    volumes:
-      - ../:/app
+  # unit_test:
+  #   build: 
+  #     context: ../
+  #     dockerfile: ./docker/Dockerfile.test
+  #   depends_on:
+  #     - app
+  #   command: coverage run -m pytest ./test/unit
+  #   volumes:
+  #     - ../:/app
+  # integration_test:
+  #   build: 
+  #     context: ../
+  #     dockerfile: ./docker/Dockerfile.test
+  #   depends_on:
+  #     - app
+  #   command: coverage run -a -m pytest ./test/integration
+  #   volumes:
+  #     - ../:/app
