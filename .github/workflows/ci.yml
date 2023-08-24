@@ -45,10 +45,21 @@ jobs:
       - name: Run integration tests
         run: |
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
+  code_coverage:
+    runs-on: ubuntu-latest
+    name: Code coverage
+    needs: [unit_tests, integration_test]
+    # FIX IT
+    # Where to put code coverage???
+    # coverage run -m pytest test/unit
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
-    needs: [unit_tests, integration_test]
+    needs: [code_coverage]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -60,9 +71,12 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements/common.txt ]; then pip install -r requirements/common.txt; fi
           if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
-      - name: Vulnerability scan using safety package
+      - name: Vulnerability scan on common packages
         run: |
           safety check -r requirements/common.txt
+      - name: Vulnerability scan on dev packages
+        run: |
+          safety check -r requirements/dev.txt
       # FIX IT
       # The coverage in 0%
       - name: SonarCloud Scan
@@ -70,14 +84,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  # FIX IT
-  # Where to put code coverage???
-  #code_coverage:
-  # - name: Upload coverage reports to Codecov
-  #   uses: codecov/codecov-action@v3
-  #   env:
-  #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-  # coverage run -m pytest test/unit
   build_image:
     runs-on: ubuntu-latest
     name: Build and push docker image

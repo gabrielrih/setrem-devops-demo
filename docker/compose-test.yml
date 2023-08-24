@@ -9,7 +9,14 @@ services:
       default:
         aliases:
           - my-ip.dev
-  test:
+  unit_test:
+    build: 
+      context: ../
+      dockerfile: ./docker/Dockerfile.test
+    depends_on:
+      - app
+    command: pytest ./test/unit
+  integration_test:
     build: 
       context: ../
       dockerfile: ./docker/Dockerfile.test
