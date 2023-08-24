@@ -52,7 +52,7 @@ jobs:
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
-    needs: [code_coverage]
+    needs: [unit_tests, integration_test]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
