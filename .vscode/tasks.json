@@ -9,6 +9,11 @@
             "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && pytest test/unit'"
         },
         {
+            "label": "Run integration api tests (On Windows)",
+            "type": "shell",
+            "command": "docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit"
+        },
+        {
             "label": "Check for vulnerabilities (On Windows)",
             "type": "shell",
             "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && safety check -r requirements/dev.txt'"
