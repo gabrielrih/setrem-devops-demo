@@ -39,6 +39,10 @@ jobs:
     name: Tests and code coverage
     steps:
       - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -49,7 +53,7 @@ jobs:
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
       - name: Generate coverage.xml
         run: |
-          coverage xml -i
+          coverage xml #-i
           ls -lsa
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
