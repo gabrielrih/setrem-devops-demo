@@ -39,7 +39,7 @@ jobs:
           pytest test/unit
   all_tests:
     runs-on: ubuntu-latest
-    name: Run all tests (Unit and integration)
+    name: Run all tests and code coverage (Unit and integration)
     steps:
       - uses: actions/checkout@v3
       - name: Run all tests
@@ -56,7 +56,7 @@ jobs:
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
-    needs: [unit_tests, integration_test]
+    needs: [unit_tests, all_tests]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
