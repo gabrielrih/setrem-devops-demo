@@ -46,8 +46,9 @@ jobs:
       - name: Run unit and integration tests
         run: |
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
-      - name: Generage coverage.xml
+      - name: Generate coverage.xml
         run: |
+          ls -lsa
           coverage xml
           ls -ls
       - name: Upload coverage reports to Codecov
