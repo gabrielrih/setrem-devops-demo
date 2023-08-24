@@ -51,13 +51,12 @@ jobs:
       - name: Run unit and integration tests
         run: |
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
-          coverage xml
-      # - name: Generate coverage.xml
-      #   run: |
-      #     ls -lsa
-      #     ls -lsa ./src/
-      #     coverage xml
-      #     ls -lsa
+      - name: Generate coverage.xml
+        run: |
+          ls -lsa
+          ls -lsa ./src/
+          coverage xml -i
+          ls -lsa
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
