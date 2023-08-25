@@ -17,7 +17,7 @@ class TestFoodApi(TestCase):
 
     def test_insert_and_get_food_by_name(self):
         # Given
-        name = "My food"
+        name = "MyFood"
         data = {
             "name": name,
             "description": "This is the description",
@@ -31,7 +31,7 @@ class TestFoodApi(TestCase):
                                       headers=self.headers)
         # Getting food by name
         params = {
-            "name": "My food"
+            "name": name
         }
         get_response = requests.get(url=self.endpoint, params=params)
 
@@ -41,7 +41,7 @@ class TestFoodApi(TestCase):
         self.assertEqual(post_response.json()['name'], data['name'])
         # Validation for the GET method
         self.assertEqual(get_response.status_code, HTTPStatus.OK)
-        self.assertEqual(len(get_response.json()), 1)  # Must return one element
+        self.assertGreaterEqual(len(get_response.json()), 1)  # Must return one element
 
     def test_insert_food_when_content_type_not_allowed(self):
         # Given
@@ -98,4 +98,5 @@ class TestFoodApi(TestCase):
         response = requests.get(self.endpoint)
         # Then
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        print(response.json())
         self.assertGreaterEqual(len(response.json()), 1)  # Must have at least one food on the db

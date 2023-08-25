@@ -1,0 +1,10 @@
+.git
+.github
+.pytest_cache
+.vscode
+docker
+.dockerignore
+.gitignore
+codecov.yml
+README.md
+sonar-project.properties
