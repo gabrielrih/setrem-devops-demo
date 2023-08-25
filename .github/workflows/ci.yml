@@ -37,6 +37,7 @@ jobs:
       - name: Unit test
         run: |
           coverage run -m pytest test/unit
+          coverage xml
           ls -lsa
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -49,7 +50,7 @@ jobs:
         with:
           name: coverage.xml
           path: ./coverage.xml
-  all_tests:
+  integration_tests:
     runs-on: ubuntu-latest
     name: Integration tests
     steps:
@@ -63,13 +64,13 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements/common.txt ]; then pip install -r requirements/common.txt; fi
           if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
-      - name: Run unit and integration tests
+      - name: Integration tests
         run: |
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
-    needs: [unit_tests, all_tests]
+    needs: [unit_tests, integration_tests]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -81,7 +82,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements/common.txt ]; then pip install -r requirements/common.txt; fi
           if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
-      - name: Vulnerability scan on common packages
+      - name: Vulnerability scan on packages
         run: |
           safety check -r requirements/common.txt
       - name: Vulnerability scan on dev packages
