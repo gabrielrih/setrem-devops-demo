@@ -16,5 +16,3 @@ services:
     depends_on:
       - app
     command: pytest test/integration
-    # volumes:
-    #   - ../:/app

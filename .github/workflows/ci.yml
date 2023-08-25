@@ -14,9 +14,9 @@ permissions:
   contents: read
 
 jobs:
-  unit_tests:
+  checks:
     runs-on: ubuntu-latest
-    name: Lint, unit test and code coverage
+    name: Lint
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -34,11 +34,25 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  unit_tests:
+    runs-on: ubuntu-latest
+    name: Unit test and code coverage
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements/common.txt ]; then pip install -r requirements/common.txt; fi
+          if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
       - name: Unit test
         run: |
           coverage run -m pytest test/unit
           coverage xml
-          ls -lsa
+          coverage report
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
@@ -70,7 +84,7 @@ jobs:
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
-    needs: [unit_tests, integration_tests]
+    needs: [checks, unit_tests, integration_tests]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
