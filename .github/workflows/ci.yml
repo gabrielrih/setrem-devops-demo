@@ -130,7 +130,7 @@ jobs:
       - name: Build image
         run: |
           docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}" .
-          docker image ls | grep "${{ secrets.DOCKERHUB_USERNAME }}"
+          docker image ls
       - name: Push image to Docker Hub
         run: |
           docker push "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}"
