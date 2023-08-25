@@ -128,11 +128,20 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push image
         run: |
-          image_and_tag="${{ env.IMAGE_NAME }}:$GITHUB_SHA"
-          echo "Building image $image_and_tag"
-          docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/$image_and_tag" .
+          current_image="${{ env.IMAGE_NAME }}:$GITHUB_SHA"
+          echo "Building image $current_image"
+          docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/$current_image" .
           docker image ls
           
           echo "Pushing image"
-          docker push "${{ secrets.DOCKERHUB_USERNAME }}/$image_and_tag"
+          docker push "${{ secrets.DOCKERHUB_USERNAME }}/$current_image"
+
+          if [ "$GITHUB_REF_NAME" == "master" ] || [ "$GITHUB_REF_NAME" == "main" ]; then
+            latest_image="${{ env.IMAGE_NAME }}:latest"
+            echo "Creating the latest image: $latest_image"
+            docker tag "${{ secrets.DOCKERHUB_USERNAME }}/$current_image" "${{ secrets.DOCKERHUB_USERNAME }}/$latest_image"
+            docker image ls
+            
+            echo "Pushing latest image"
+            docker push "${{ secrets.DOCKERHUB_USERNAME }}/$latest_image"
   
