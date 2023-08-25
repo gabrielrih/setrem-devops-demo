@@ -51,7 +51,7 @@ class TestFoodApi(TestCase):
         invalid_header = {
             'Content-Type': 'application/pdf'
         }
-        expected_error_message = 'Content-Type application/pdf not supported! Must be application/json'
+        expected_error_message = 'Content-Type application/pdf not supported! Must be application/jso'
         # When
         response = requests.post(url=self.endpoint,
                                  data=data,
