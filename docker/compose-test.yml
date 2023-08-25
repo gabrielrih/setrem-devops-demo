@@ -15,6 +15,6 @@ services:
       dockerfile: ./docker/Dockerfile.test
     depends_on:
       - app
-    command: coverage run -m pytest
-    volumes:
-      - ../:/app
+    command: pytest test/integration
+    # volumes:
+    #   - ../:/app

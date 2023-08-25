@@ -16,7 +16,7 @@ permissions:
 jobs:
   unit_tests:
     runs-on: ubuntu-latest
-    name: Lint and unit test
+    name: Lint, unit test and code coverage
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -41,14 +41,17 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
-          # directory: ./
-          # files: coverage.xml
-          verbose: true
+          files: ./coverage.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage.xml
+          path: ./coverage.xml
   all_tests:
     runs-on: ubuntu-latest
-    name: Tests and code coverage
+    name: Integration tests
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -63,27 +66,6 @@ jobs:
       - name: Run unit and integration tests
         run: |
           docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
-          
-      - name: Generate coverage.xml
-        run: |
-          ls -lsa
-          ls -lsa ./src/
-          coverage report
-          coverage xml -i
-          ls -lsa
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: ./
-          files: coverage.xml
-          verbose: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage.xml
-          path: coverage.xml
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan
