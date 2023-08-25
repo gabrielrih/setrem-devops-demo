@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.app
+    ports:
+      - 5000:5000
+    networks:
+      default:
+        aliases:
+          - my-ip.dev
+  test:
+    build: 
+      context: ../
+      dockerfile: ./docker/Dockerfile.test
+    depends_on:
+      - app
+    command: pytest test/integration

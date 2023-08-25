@@ -3,6 +3,7 @@ DevOps demo activity
 
 To run...
 ```sh
+cd docker
 docker compose up --build -d
 ```
 

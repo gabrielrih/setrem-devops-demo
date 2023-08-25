@@ -15,7 +15,7 @@ class TestFoods(TestCase):
         # When
         data = foods.get_all()
         # Then
-        self.assertIsNotNone(data)
+        self.assertIsNotNone(data)  # Must have data
         self.assertIsInstance(data, List)
 
     def test_add_and_get_food_by_name(self):

@@ -1,12 +1,24 @@
+from typing import Dict
 from http import HTTPStatus
 from flask import Flask, jsonify, redirect, render_template, request
-from marshmallow import ValidationError
 
 from src.foods import Foods, FoodSchema
 
 
 app = Flask(__name__)
 foods = Foods()
+
+
+class ResponseError:
+    @staticmethod
+    def as_dict(code: int = HTTPStatus.BAD_REQUEST,
+                message: str = 'General error') -> Dict:
+        return {
+            "error": {
+                "code": code,
+                "message": message
+            }
+        }
 
 
 # Redirect
@@ -33,17 +45,27 @@ def get_foods():
 
 @app.route("/api/food/", methods=['POST'])
 def add_food():
-    content_type = request.headers.get('Content-Type')
+    content_type = request.content_type
     if content_type != 'application/json':
-        return 'Content-Type not supported! Support ones: application/json', HTTPStatus.BAD_REQUEST
-    content = request.json
-    if not content:
-        return 'Body cannot be empty!', HTTPStatus.BAD_REQUEST
-    # Validate request body against schema data types
-    schema = FoodSchema()
+        error_code = HTTPStatus.BAD_REQUEST
+        response = ResponseError().as_dict(code=error_code,
+                                           message=f'Content-Type {content_type} not supported! Must be application/json')
+        return response, HTTPStatus.BAD_REQUEST
+    body = request.data
+    if not body:
+        error_code = HTTPStatus.BAD_REQUEST
+        response = ResponseError().as_dict(code=error_code,
+                                           message='Body cannot be empty!')
+        return response, error_code
     try:
+        schema = FoodSchema()
+        content = request.get_json()
         schema.load(content)
-    except ValidationError as error:
-        return jsonify(error.messages), HTTPStatus.BAD_REQUEST
+    except Exception:
+        error_code = HTTPStatus.BAD_REQUEST
+        response = ResponseError().as_dict(code=error_code,
+                                           message='Invalid schema! Failed to parse it.')
+        return response, error_code
+    # Add food on the database
     foods.add_food(content)
     return content, HTTPStatus.CREATED
