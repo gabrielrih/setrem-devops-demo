@@ -1,5 +1,3 @@
-import json
-
 from typing import Dict
 from http import HTTPStatus
 from flask import Flask, jsonify, redirect, render_template, request
@@ -13,7 +11,7 @@ foods = Foods()
 
 class ResponseError:
     @staticmethod
-    def as_dict(code: int = HTTPStatus.BAD_REQUEST, 
+    def as_dict(code: int = HTTPStatus.BAD_REQUEST,
                 message: str = 'General error') -> Dict:
         return {
             "error": {
