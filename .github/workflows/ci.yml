@@ -7,8 +7,7 @@ on:
     branches: [ "master" ]
 
 env:
-  DEV_TAG: devops-demo-app:dev
-  LATEST_TAG: devops-demo-app:latest
+  IMAGE_NAME: devops-demo-app
 
 permissions:
   contents: read
@@ -116,7 +115,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   build_image:
     runs-on: ubuntu-latest
-    name: Build and push docker image
+    name: Build and push image
     needs: [security_scan]
     steps:
       - uses: actions/checkout@v3
@@ -127,11 +126,24 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build image
+      - name: Build and push image
         run: |
-          docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}" .
+          current_image="${{ env.IMAGE_NAME }}:$GITHUB_SHA"
+          echo "Building image $current_image"
+          docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/$current_image" .
           docker image ls
-      - name: Push image to Docker Hub
-        run: |
-          docker push "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}"
+          
+          echo "Pushing image"
+          docker push "${{ secrets.DOCKERHUB_USERNAME }}/$current_image"
+
+          echo "Debug: Current branch: $GITHUB_REF_NAME"
+          if [ "$GITHUB_REF_NAME" == "master" ] || [ "$GITHUB_REF_NAME" == "main" ]; then
+            latest_image="${{ env.IMAGE_NAME }}:latest"
+            echo "Building image $latest_image"
+            docker tag "${{ secrets.DOCKERHUB_USERNAME }}/$current_image" "${{ secrets.DOCKERHUB_USERNAME }}/$latest_image"
+            docker image ls
+            
+            echo "Pushing latest image"
+            docker push "${{ secrets.DOCKERHUB_USERNAME }}/$latest_image"
+          fi
   
