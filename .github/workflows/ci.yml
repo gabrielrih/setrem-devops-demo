@@ -128,7 +128,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push image
         run: |
-          current_image="${{ env.IMAGE_NAME }}:$GITHUB_REF_NAME"
+          current_image="${{ env.IMAGE_NAME }}:$GITHUB_SHA"
           echo "Building image $current_image"
           docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/$current_image" .
           docker image ls
