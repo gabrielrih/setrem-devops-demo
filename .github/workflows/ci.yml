@@ -7,8 +7,7 @@ on:
     branches: [ "master" ]
 
 env:
-  DEV_TAG: devops-demo-app:dev
-  LATEST_TAG: devops-demo-app:latest
+  IMAGE_NAME: devops-demo-app
 
 permissions:
   contents: read
@@ -127,11 +126,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build image
+      - name: Build and push image
         run: |
-          docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}" .
+          image_and_tag="/${{ env.IMAGE_NAME }}:${{ env.GITHUB_REF }}"
+          echo "Building image $image_and_tag"
+          docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/$image_and_tag" .
           docker image ls
-      - name: Push image to Docker Hub
-        run: |
-          docker push "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}"
+          echo "Pushing image"
+          docker push "${{ secrets.DOCKERHUB_USERNAME }}/$image_and_tag"          
   
