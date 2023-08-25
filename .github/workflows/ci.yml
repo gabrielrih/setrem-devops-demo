@@ -16,7 +16,7 @@ permissions:
 jobs:
   unit_tests:
     runs-on: ubuntu-latest
-    name: Lint using flake8
+    name: Lint and unit test
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -34,6 +34,18 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Unit test
+        run: |
+          coverage run -m pytest test/unit
+          ls -lsa
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          # directory: ./
+          # files: coverage.xml
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   all_tests:
     runs-on: ubuntu-latest
     name: Tests and code coverage
