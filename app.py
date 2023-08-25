@@ -6,6 +6,7 @@ from src.foods import Foods, FoodSchema
 
 
 app = Flask(__name__)
+app.config['WTF_CSRF_ENABLED'] = False # sensitive
 foods = Foods()
 
 
