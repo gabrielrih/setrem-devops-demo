@@ -36,7 +36,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   unit_tests:
     runs-on: ubuntu-latest
-    name: Unit test and code coverage
+    name: Unit tests / Code coverage
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -52,6 +52,7 @@ jobs:
         run: |
           coverage run -m pytest test/unit
           coverage xml
+          echo "Code coverage report:"
           coverage report
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -113,25 +114,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  # build_image:
-  #   runs-on: ubuntu-latest
-  #   name: Build and push docker image
-  #   needs: [unit_tests, security_scan]
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v2
-  #     - name: Login to Docker Hub
-  #       uses: docker/login-action@v2
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # FIX IT:
-      # The build and push is not working
-      # - name: Build and push image to Docker Hub
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: ./docker/
-      #     push: true
-      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}
+  build_image:
+    runs-on: ubuntu-latest
+    name: Build and push docker image
+    needs: [security_scan]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: |
+          docker build -f ./docker/Dockerfile.app -t "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}" .
+          docker image ls | grep "${{ secrets.DOCKERHUB_USERNAME }}"
+      - name: Push image to Docker Hub
+        run: |
+          docker push "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.LATEST_TAG }}"
   
