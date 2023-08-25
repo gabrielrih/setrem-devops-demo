@@ -136,6 +136,7 @@ jobs:
           echo "Pushing image"
           docker push "${{ secrets.DOCKERHUB_USERNAME }}/$current_image"
 
+          echo "Debug: Current branch: $GITHUB_REF_NAME"
           if [ "$GITHUB_REF_NAME" == "master" ] || [ "$GITHUB_REF_NAME" == "main" ]; then
             latest_image="${{ env.IMAGE_NAME }}:latest"
             echo "Creating the latest image: $latest_image"
