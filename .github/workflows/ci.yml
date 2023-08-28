@@ -78,9 +78,12 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements/common.txt ]; then pip install -r requirements/common.txt; fi
           if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
-      - name: Integration tests
+      - name: API tests
         run: |
-          docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit
+          docker compose -f ./docker/compose-test.yml run api_test
+      - name: Web tests using cypress
+        run: |
+          docker compose -f ./docker/compose-test.yml run web_test
   security_scan:
     runs-on: ubuntu-latest
     name: Security scan

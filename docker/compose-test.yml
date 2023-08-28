@@ -5,14 +5,29 @@ services:
       dockerfile: ./docker/Dockerfile.app
     ports:
       - 5000:5000
+    container_name: docker_temp_app
     networks:
       default:
         aliases:
-          - my-ip.dev
-  test:
+          - my-app.dev
+  api_test:
     build: 
       context: ../
-      dockerfile: ./docker/Dockerfile.test
+      dockerfile: ./docker/Dockerfile.api
     depends_on:
       - app
+    container_name: docker_temp_api_test
     command: pytest test/integration
+  web_test:
+    build: 
+      context: ../
+      dockerfile: ./docker/Dockerfile.cypress
+    depends_on:
+      - app
+    # note: inside web_test container, the network allows accessing
+    # "app" host under alias "my-app-dev" on port 5000
+    # so "curl http://my-app-dev 5000" would return whatever the webserver
+    environment:
+      - CYPRESS_baseUrl=http://my-app.dev:5000
+    container_name: docker_temp_web_test
+    command: npx cypress run --spec cypress/e2e/**

@@ -54,6 +54,12 @@ cover/
 # Unit test temp files
 db_test.json
 
+# cypress
+package-lock.json
+node_modules
+cypress/videos
+cypress/downloads
+
 # Translations
 *.mo
 *.pot
