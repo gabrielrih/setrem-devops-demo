@@ -9,9 +9,14 @@
             "command": "docker run --rm -it -v ${pwd}:/app python:3.11-buster bash -c 'cd /app && pip install -r requirements/dev.txt && pip install -r requirements/common.txt && pytest test/unit'"
         },
         {
-            "label": "Run integration tests (On Windows)",
+            "label": "Run integration API tests (On Windows)",
             "type": "shell",
-            "command": "docker compose -f ./docker/compose-test.yml up --build --abort-on-container-exit"
+            "command": "docker compose -f ./docker/compose-test.yml run api_test"
+        },
+        {
+            "label": "Run integration WEB tests (On Windows)",
+            "type": "shell",
+            "command": "docker compose -f ./docker/compose-test.yml run web_test"
         },
         {
             "label": "Check for vulnerabilities (On Windows)",

@@ -10,7 +10,7 @@ class TestFoodApi(TestCase):
 
     # This is the aliases used on docker compose
     # So, to run the test integration please use the docker compose
-    endpoint = 'http://my-ip.dev:5000/api/food/'
+    endpoint = 'http://my-app.dev:5000/api/food/'
     headers = {
         'Content-Type': 'application/json'
     }
