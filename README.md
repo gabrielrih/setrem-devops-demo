@@ -6,6 +6,7 @@ DevOps demo activity
 - [How to start the web site](#how-to-start-the-web-site)
 - [How to run tests](#how-to-run-tests)
 - [How to change web tests on cypress](#how-to-change-web-tests-on-cypress)
+- [Deploying on K8S](#deploying-on-k8s)
 - [Documentation](#documentation)
 
 ## Dependecies
@@ -52,6 +53,29 @@ To start cypress to create on modify tests:
 ```
 
 Now we can create your tests.
+
+## Deploying on K8S
+
+Make sure you are on the current context:
+```sh
+kubectl config current-context
+```
+
+Then you can apply the resources on K8S using this command:
+```sh
+kubectl apply -f ./k8s/resources.yml
+```
+
+To verify if it's working you can run a get command to see the services and the pods.
+```sh
+kubectl get deployments
+kubectl get services
+```
+
+Finally, we can undo the deploy:
+```sh
+kubectl delete -f ./k8s/resources.yml
+```
 
 ## Documentation
 
