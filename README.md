@@ -1,15 +1,7 @@
 # setrem-devops-demo
 DevOps demo activity
 
-# Index
-- [Dependencies](#dependencies)
-- [How to start the web site](#how-to-start-the-web-site)
-- [How to run tests](#how-to-run-tests)
-- [How to change web tests on cypress](#how-to-change-web-tests-on-cypress)
-- [Deploying on K8S](#deploying-on-k8s)
-- [Documentation](#documentation)
-
-## Dependecies
+## Dependencies
 To use this repository we must have install [docker](https://docs.docker.com/get-docker/) and [cypress](https://docs.cypress.io/guides/overview/why-cypress). Please, install it according to your OS.
 
 
