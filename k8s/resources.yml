@@ -31,9 +31,6 @@ spec:
       - name: devops-demo-app
         image: "gabrielrih/devops-demo-app:latest"
         imagePullPolicy: Always
-        # envFrom:
-        #   - configMapRef:
-        #       name: legado-php-config
         resources:
           limits:
             memory: "128Mi"
