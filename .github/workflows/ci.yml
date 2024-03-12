@@ -109,8 +109,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage.xml
-      # FIX IT
-      # The coverage in 0%
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
